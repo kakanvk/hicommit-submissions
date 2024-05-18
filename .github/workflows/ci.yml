@@ -35,6 +35,7 @@ jobs:
       - name: Run Tests
         run: |
           echo "Listing test cases directory"
+          cd ..
           ls -l test-cases
           for test_dir in test-cases/*/; do
             echo "Processing ${test_dir}"

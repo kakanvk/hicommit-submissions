@@ -30,7 +30,6 @@ jobs:
 
       - name: Compile Code
         run: |
-          ls -la  # Debugging step to see the file structure
           gcc -o my_program main.c
 
       - name: Run Tests
@@ -46,10 +45,14 @@ jobs:
               echo "Running test with ${input_file} and ${expected_output_file}"
               ./my_program < "$input_file" > output.txt
               
-              if diff output.txt "$expected_output_file"; then
+              # Ensure output has a newline at the end
+              echo "" >> output.txt
+              
+              if diff -q output.txt "$expected_output_file"; then
                 echo "Test ${test_dir} passed!"
               else
                 echo "Test ${test_dir} failed!"
+                diff output.txt "$expected_output_file"
                 exit 1
               fi
             else

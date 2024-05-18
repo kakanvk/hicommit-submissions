@@ -1,0 +1,51 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Student's Code
+        uses: actions/checkout@v2
+
+      - name: Checkout Test Cases
+        uses: actions/checkout@v2
+        with:
+          repository: hicommit/problems
+          path: test-cases
+          ref: test
+
+      - name: Set up C Compiler
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gcc
+
+      - name: Compile Code
+        run: |
+          gcc -o my_program main.c
+
+      - name: Run Tests
+        run: |
+          for test_dir in test-cases/*/; do
+            input_file="${test_dir}input.txt"
+            expected_output_file="${test_dir}output.txt"
+            
+            ./my_program < "$input_file" > output.txt
+            
+            if diff output.txt "$expected_output_file"; then
+              echo "Test ${test_dir} passed!"
+            else
+              echo "Test ${test_dir} failed!"
+              exit 1
+            fi
+          done
+
+          echo "All tests passed!"

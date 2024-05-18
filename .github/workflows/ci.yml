@@ -21,7 +21,7 @@ jobs:
         with:
           repository: hicommit/problems
           ref: test
-          path: test-cases
+          path: test-cases-repo
 
       - name: Set up C Compiler
         run: |
@@ -35,8 +35,8 @@ jobs:
       - name: Run Tests
         run: |
           echo "Listing test cases directory"
-          ls -l test-cases/test-cases
-          for test_dir in test-cases/test-cases/*/; do
+          ls -l test-cases-repo/test-cases
+          for test_dir in test-cases-repo/test-cases/*/; do
             echo "Processing ${test_dir}"
             input_file="${test_dir}input.txt"
             expected_output_file="${test_dir}output.txt"

@@ -69,8 +69,8 @@ jobs:
           done
           
           echo "Total tests: $total_count, Passed: $pass_count" >> test_results.txt
-          echo "All tests passed!"
-          
+          echo "All tests completed!"
+
       - name: Upload Test Results
         uses: actions/upload-artifact@v3
         with:

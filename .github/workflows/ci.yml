@@ -34,16 +34,25 @@ jobs:
 
       - name: Run Tests
         run: |
+          echo "Listing test cases directory"
+          ls -l test-cases
           for test_dir in test-cases/*/; do
+            echo "Processing ${test_dir}"
             input_file="${test_dir}input.txt"
             expected_output_file="${test_dir}output.txt"
             
-            ./my_program < "$input_file" > output.txt
-            
-            if diff output.txt "$expected_output_file"; then
-              echo "Test ${test_dir} passed!"
+            if [[ -f "$input_file" ]] && [[ -f "$expected_output_file" ]]; then
+              echo "Running test with ${input_file} and ${expected_output_file}"
+              ./my_program < "$input_file" > output.txt
+              
+              if diff output.txt "$expected_output_file"; then
+                echo "Test ${test_dir} passed!"
+              else
+                echo "Test ${test_dir} failed!"
+                exit 1
+              fi
             else
-              echo "Test ${test_dir} failed!"
+              echo "Test case files not found in ${test_dir}"
               exit 1
             fi
           done

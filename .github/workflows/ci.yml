@@ -21,6 +21,7 @@ jobs:
         with:
           repository: hicommit/problems
           ref: test
+          path: test-cases
 
       - name: Set up C Compiler
         run: |
@@ -29,22 +30,14 @@ jobs:
 
       - name: Compile Code
         run: |
+          ls -la  # Debugging step to see the file structure
           gcc -o my_program main.c
-
-      - name: Debug Test Cases
-        run: |
-          echo "Listing test cases directory"
-          ls -l problems/test-cases
-          for test_dir in problems/test-cases/*/; do
-            echo "Contents of ${test_dir}"
-            ls -l "${test_dir}"
-            cat "${test_dir}input.txt"
-            cat "${test_dir}output.txt"
-          done
 
       - name: Run Tests
         run: |
-          for test_dir in problems/test-cases/*/; do
+          echo "Listing test cases directory"
+          ls -l test-cases/test-cases
+          for test_dir in test-cases/test-cases/*/; do
             echo "Processing ${test_dir}"
             input_file="${test_dir}input.txt"
             expected_output_file="${test_dir}output.txt"

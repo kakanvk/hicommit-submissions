@@ -20,7 +20,6 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: hicommit/problems
-          path: test-cases
           ref: test
 
       - name: Set up C Compiler
@@ -35,8 +34,8 @@ jobs:
       - name: Debug Test Cases
         run: |
           echo "Listing test cases directory"
-          ls -l test-cases
-          for test_dir in test-cases/*/; do
+          ls -l problems/test-cases
+          for test_dir in problems/test-cases/*/; do
             echo "Contents of ${test_dir}"
             ls -l "${test_dir}"
             cat "${test_dir}input.txt"
@@ -45,7 +44,7 @@ jobs:
 
       - name: Run Tests
         run: |
-          for test_dir in test-cases/*/; do
+          for test_dir in problems/test-cases/*/; do
             echo "Processing ${test_dir}"
             input_file="${test_dir}input.txt"
             expected_output_file="${test_dir}output.txt"

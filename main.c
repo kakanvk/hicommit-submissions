@@ -15,9 +15,9 @@ int main() {
     int n;
     scanf("%d", &n);
     if (is_prime(n)) {
-        printf("Yes\n");
+        printf("Yes");
     } else {
-        printf("No\n");
+        printf("No");
     }
     return 0;
 }

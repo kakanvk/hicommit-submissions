@@ -44,9 +44,9 @@ jobs:
             if [[ -f "$input_file" ]] && [[ -f "$expected_output_file" ]]; then
               echo "Running test with ${input_file} and ${expected_output_file}"
               ./my_program < "$input_file" > output.txt
-              
-              # Ensure output has a newline at the end
-              echo "" >> output.txt
+
+              # Remove trailing newline from the output file
+              sed -i -e '$a\' output.txt
               
               if diff -q output.txt "$expected_output_file"; then
                 echo "Test ${test_dir} passed!"

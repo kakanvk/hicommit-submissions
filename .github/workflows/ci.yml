@@ -45,8 +45,9 @@ jobs:
               echo "Running test with ${input_file} and ${expected_output_file}"
               ./my_program < "$input_file" > output.txt
 
-              # Remove trailing newline from the output file
+              # Add a newline at the end of both output files if not present
               sed -i -e '$a\' output.txt
+              sed -i -e '$a\' "$expected_output_file"
               
               if diff -q output.txt "$expected_output_file"; then
                 echo "Test ${test_dir} passed!"

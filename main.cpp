@@ -13,12 +13,17 @@ bool isPrime(int n) {
 }
 
 int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
     int num;
     cin >> num;
+
     if (isPrime(num)) {
-        cout << "Yes" << endl;
+        cout << "Yes\n";
     } else {
-        cout << "No" << endl;
+        cout << "No\n";
     }
+
     return 0;
 }

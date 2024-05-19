@@ -13,24 +13,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Student's Code
+      - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Checkout Test Cases
-        uses: actions/checkout@v2
-        with:
-          repository: hicommit/problems
-          ref: test
-          path: test-cases-repo
-
-      - name: Set up C Compiler and Libraries
+      - name: Set up C++ Compiler and Libraries
         run: |
           sudo apt-get update
-          sudo apt-get install -y gcc libpthread-stubs0-dev zlib1g-dev libcurl4-openssl-dev libssl-dev libsdl2-dev
+          sudo apt-get install -y g++ cmake git curl
+          sudo apt-get install -y libpthread-stubs0-dev zlib1g-dev libcurl4-openssl-dev libssl-dev libsdl2-dev libboost-all-dev
+          sudo apt-get install -y libstdc++-10-dev
 
       - name: Compile Code
         run: |
-          gcc -o my_program main.c -lm -pthread -lz -lcurl -lssl -lcrypto -lSDL2
+          g++ -o my_program main.cpp -std=c++17 -lm -pthread -lz -lcurl -lssl -lcrypto -lSDL2 -lboost_system
 
       - name: Run Tests
         run: |

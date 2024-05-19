@@ -30,7 +30,7 @@ jobs:
 
       - name: Compile Code
         run: |
-          gcc -o my_program main.c
+          gcc -o my_program main.c -lm  # Add -lm to link the math library
 
       - name: Run Tests
         run: |

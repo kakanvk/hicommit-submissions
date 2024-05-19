@@ -23,14 +23,14 @@ jobs:
           ref: test
           path: test-cases-repo
 
-      - name: Set up C Compiler
+      - name: Set up C Compiler and Libraries
         run: |
           sudo apt-get update
-          sudo apt-get install -y gcc
+          sudo apt-get install -y gcc libpthread-stubs0-dev zlib1g-dev libcurl4-openssl-dev libssl-dev libsdl2-dev
 
       - name: Compile Code
         run: |
-          gcc -o my_program main.c -lm  # Add -lm to link the math library
+          gcc -o my_program main.c -lm -pthread -lz -lcurl -lssl -lcrypto -lSDL2
 
       - name: Run Tests
         run: |
